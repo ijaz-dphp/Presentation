@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presentation</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0f172a;
+      --surface:   #1e293b;
+      --accent:    #38bdf8;
+      --accent2:   #818cf8;
+      --text:      #f1f5f9;
+      --muted:     #94a3b8;
+      --radius:    1rem;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* ── Deck ───────────────────────────────────────── */
+    #deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem;
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity .4s ease, transform .4s ease;
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    .slide.exit {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
+    /* ── Slide layouts ──────────────────────────────── */
+    .slide-title {
+      text-align: center;
+    }
+
+    .slide-title .eyebrow {
+      font-size: .9rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .slide-title h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-title .subtitle {
+      margin-top: 1.2rem;
+      font-size: 1.25rem;
+      color: var(--muted);
+      max-width: 40ch;
+    }
+
+    /* ── Content slide ──────────────────────────────── */
+    .slide-content {
+      max-width: 860px;
+      width: 100%;
+    }
+
+    .slide-content h2 {
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--accent);
+    }
+
+    .slide-content p {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    /* ── Card grid ──────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 860px;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid #334155;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color .25s;
+    }
+
+    .card:hover { border-color: var(--accent); }
+
+    .card .icon {
+      font-size: 2rem;
+      margin-bottom: .75rem;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: .5rem;
+    }
+
+    .card p {
+      font-size: .875rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── List slide ─────────────────────────────────── */
+    .bullet-list {
+      list-style: none;
+      max-width: 680px;
+      width: 100%;
+      margin-top: 1.5rem;
+    }
+
+    .bullet-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      margin-bottom: 1.25rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+
+    .bullet-list li::before {
+      content: '▸';
+      color: var(--accent2);
+      flex-shrink: 0;
+      margin-top: .15em;
+    }
+
+    .bullet-list li strong { color: var(--text); }
+
+    /* ── Code block ─────────────────────────────────── */
+    .code-wrap {
+      background: var(--surface);
+      border: 1px solid #334155;
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      margin-top: 1.5rem;
+      width: 100%;
+      max-width: 700px;
+      overflow-x: auto;
+    }
+
+    .code-wrap pre {
+      font-family: 'Cascadia Code', 'Fira Code', monospace;
+      font-size: .92rem;
+      line-height: 1.65;
+      color: #cbd5e1;
+    }
+
+    .code-wrap .kw  { color: #c084fc; }
+    .code-wrap .fn  { color: #38bdf8; }
+    .code-wrap .str { color: #86efac; }
+    .code-wrap .cm  { color: #475569; }
+
+    /* ── Thank-you slide ────────────────────────────── */
+    .slide-thanks {
+      text-align: center;
+    }
+
+    .slide-thanks h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-thanks p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+
+    /* ── Navigation ─────────────────────────────────── */
+    #nav {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid #334155;
+      border-radius: 999px;
+      padding: .5rem 1.25rem;
+      z-index: 100;
+    }
+
+    #nav button {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: .25rem .5rem;
+      border-radius: .5rem;
+      transition: background .2s;
+    }
+
+    #nav button:hover:not(:disabled) { background: #334155; }
+    #nav button:disabled { opacity: .3; cursor: default; }
+
+    #counter {
+      font-size: .85rem;
+      color: var(--muted);
+      min-width: 4ch;
+      text-align: center;
+    }
+
+    /* ── Progress bar ───────────────────────────────── */
+    #progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .3s ease;
+      z-index: 100;
+    }
+
+    /* ── Keyboard hint ──────────────────────────────── */
+    #hint {
+      position: fixed;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: .75rem;
+      color: var(--muted);
+      opacity: .5;
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="hint">← → arrow keys or click to navigate</div>
+
+<div id="deck">
+
+  <!-- Slide 1 — Title -->
+  <section class="slide slide-title active" data-index="0">
+    <p class="eyebrow">Welcome</p>
+    <h1>Presentation</h1>
+    <p class="subtitle">A clean, self-contained slide deck you can customise for any topic.</p>
+  </section>
+
+  <!-- Slide 2 — About -->
+  <section class="slide slide-content" data-index="1">
+    <h2>About this deck</h2>
+    <p>
+      This presentation is built with plain HTML, CSS, and a small amount of
+      JavaScript — no build tools, no external dependencies.  Open
+      <code>index.html</code> in any modern browser to get started.
+    </p>
+    <p style="margin-top:1rem;">
+      Use the arrow keys or the navigation buttons at the bottom to move
+      between slides.  Edit the <code>&lt;section&gt;</code> elements in the
+      source to add your own content.
+    </p>
+  </section>
+
+  <!-- Slide 3 — Key features (card grid) -->
+  <section class="slide slide-content" data-index="2">
+    <h2>Key Features</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="icon">🎨</div>
+        <h3>Minimal &amp; Elegant</h3>
+        <p>Dark theme with a modern colour palette — looks great projected or on screen.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📱</div>
+        <h3>Responsive</h3>
+        <p>Scales cleanly on laptops, external monitors, and mobile devices.</p>
+      </div>
+      <div class="card">
+        <div class="icon">⚡</div>
+        <h3>Zero Dependencies</h3>
+        <p>Single HTML file — no npm, no CDN, no internet required.</p>
+      </div>
+      <div class="card">
+        <div class="icon">⌨️</div>
+        <h3>Keyboard-first</h3>
+        <p>Navigate with ← → arrow keys, or tap the on-screen buttons.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 4 — How to customise (bullet list) -->
+  <section class="slide slide-content" data-index="3">
+    <h2>How to Customise</h2>
+    <ul class="bullet-list">
+      <li><strong>Add a slide</strong> — copy any <code>&lt;section class="slide …"&gt;</code> block and change the content.</li>
+      <li><strong>Change colours</strong> — edit the <code>:root</code> CSS variables at the top of the <code>&lt;style&gt;</code> block.</li>
+      <li><strong>Change the font</strong> — replace the <code>font-family</code> on <code>body</code> with any web-safe or Google Font.</li>
+      <li><strong>Add images</strong> — drop an <code>&lt;img&gt;</code> into any slide; they scale automatically.</li>
+      <li><strong>Export to PDF</strong> — open in Chrome, press <kbd>Ctrl+P</kbd>, choose "Save as PDF".</li>
+    </ul>
+  </section>
+
+  <!-- Slide 5 — Code example -->
+  <section class="slide slide-content" data-index="4">
+    <h2>Embedding Code</h2>
+    <p>Use the <code>.code-wrap</code> block to highlight a snippet:</p>
+    <div class="code-wrap">
+      <pre><span class="cm">// Greet the audience</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name) {
+  <span class="kw">const</span> message = <span class="str">`Hello, <span class="fn">${name}</span>! 👋`</span>;
+  console.<span class="fn">log</span>(message);
+}
+
+<span class="fn">greet</span>(<span class="str">"World"</span>);</pre>
+    </div>
+  </section>
+
+  <!-- Slide 6 — Thank you -->
+  <section class="slide slide-thanks" data-index="5">
+    <h2>Thank You</h2>
+    <p>Questions, feedback, and contributions are always welcome.</p>
+  </section>
+
+</div>
+
+<!-- Navigation -->
+<nav id="nav">
+  <button id="btnPrev" title="Previous slide" aria-label="Previous slide">&#8592;</button>
+  <span id="counter">1 / 6</span>
+  <button id="btnNext" title="Next slide" aria-label="Next slide">&#8594;</button>
+</nav>
+
+<script>
+  const slides   = Array.from(document.querySelectorAll('.slide'));
+  const btnPrev  = document.getElementById('btnPrev');
+  const btnNext  = document.getElementById('btnNext');
+  const counter  = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  let current    = 0;
+
+  function goTo(next) {
+    if (next < 0 || next >= slides.length) return;
+
+    slides[current].classList.remove('active');
+    slides[current].classList.add('exit');
+
+    // clean up exit class after transition
+    const exiting = slides[current];
+    setTimeout(() => exiting.classList.remove('exit'), 400);
+
+    current = next;
+    slides[current].classList.add('active');
+
+    counter.textContent  = `${current + 1} / ${slides.length}`;
+    progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+    btnPrev.disabled     = current === 0;
+    btnNext.disabled     = current === slides.length - 1;
+  }
+
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  btnNext.addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  goTo(current + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    goTo(current - 1);
+  });
+
+  // initialise
+  goTo(0);
+</script>
+</body>
+</html>
