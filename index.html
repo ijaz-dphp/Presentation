@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBM Global Talent Management Strategy - Presentation</title>
+  <!-- Google Fonts: Inter and IBM Plex Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --ibm-blue: #0f62fe;
+      --ibm-blue-hover: #0353e9;
+      --ibm-blue-dark: #002d9c;
+      --ibm-blue-light: #edf5ff;
+      --ibm-purple: #8a3ffc;
+      --ibm-magenta: #d12771;
+      --ibm-teal: #009d9a;
+      --bg-dark: #161616;
+      --bg-light: #f4f4f4;
+      --bg-white: #ffffff;
+      --text-dark: #161616;
+      --text-light: #ffffff;
+      --text-muted: #525252;
+      --text-gray-light: #8d8d8d;
+      --border-color: #e0e0e0;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', 'Inter', sans-serif;
+      background-color: #0c0c0c;
+      color: var(--text-dark);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Main Presentation Container */
+    #presentation-container {
+      position: relative;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000000;
+      padding: 20px;
+    }
+
+    /* Slides viewport (16:9 Aspect Ratio) */
+    .viewport {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      height: 100%;
+      max-height: 675px;
+      aspect-ratio: 16 / 9;
+      background-color: var(--bg-white);
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Slide container */
+    .slides-wrapper {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Slide Base Style */
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 50px 70px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(50px);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      background-color: var(--bg-white);
+      overflow-y: auto;
+    }
+
+    /* Active Slide State */
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    /* Slide transitions: Exit Left */
+    .slide.exit-left {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+
+    /* Header styles inside slides */
+    .slide-header {
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 15px;
+    }
+
+    .slide-title-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .part-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+    }
+
+    .part-a-tag { background-color: var(--ibm-blue-light); color: var(--ibm-blue); }
+    .part-b-tag { background-color: #f3e8ff; color: var(--ibm-purple); }
+    .part-c-tag { background-color: #e5f6f4; color: var(--ibm-teal); }
+
+    .slide-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .slide-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-top: -5px;
+      font-weight: 400;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Lead/Title Slide Specifics */
+    .slide.lead-slide {
+      background: linear-gradient(135deg, var(--ibm-blue-dark) 0%, #001240 100%);
+      color: var(--text-light);
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 80px;
+    }
+
+    .lead-slide h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--text-light);
+      letter-spacing: -1px;
+    }
+
+    .lead-slide p.subtitle {
+      font-size: 1.4rem;
+      margin-bottom: 40px;
+      color: #a6c8ff;
+      font-weight: 300;
+      max-width: 800px;
+    }
+
+    .lead-slide .meta-box {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 20px;
+      width: 100%;
+      display: flex;
+      gap: 50px;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+
+    .lead-slide .meta-item strong {
+      color: var(--text-light);
+      display: block;
+      font-size: 1rem;
+      margin-top: 4px;
+    }
+
+    /* Grid Layouts inside slides */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 30px;
+      align-items: stretch;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 15px;
+      align-items: stretch;
+    }
+
+    /* Card Component */
+    .card {
+      background-color: var(--bg-light);
+      border-radius: 8px;
+      padding: 20px;
+      border-left: 5px solid var(--ibm-blue);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .card.purple { border-left-color: var(--ibm-purple); }
+    .card.magenta { border-left-color: var(--ibm-magenta); }
+    .card.teal { border-left-color: var(--ibm-teal); }
+    .card.dark { background-color: var(--bg-dark); color: var(--text-light); border-left-color: var(--ibm-blue); }
+
+    .card h3, .card h4 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card.dark h3 {
+      color: var(--text-light);
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card.dark p {
+      color: #cccccc;
+    }
+
+    .card ul {
+      list-style-type: none;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card.dark ul {
+      color: #bbbbbb;
+    }
+
+    .card li {
+      margin-bottom: 8px;
+      position: relative;
+      padding-left: 12px;
+    }
+
+    .card li::before {
+      content: "•";
+      color: var(--ibm-blue);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+    .card.purple li::before { color: var(--ibm-purple); }
+    .card.magenta li::before { color: var(--ibm-magenta); }
+    .card.teal li::before { color: var(--ibm-teal); }
+
+    /* Timeline Component */
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-top: 40px;
+      padding: 0 10px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 15px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--border-color);
+      z-index: 1;
+    }
+
+    .timeline-node {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      flex: 1;
+      padding: 0 10px;
+    }
+
+    .timeline-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--bg-white);
+      border: 3px solid var(--ibm-blue);
+      margin: 0 auto 15px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.8rem;
+      color: var(--ibm-blue);
+      transition: var(--transition);
+    }
+
+    .timeline-node.active .timeline-badge {
+      background-color: var(--ibm-blue);
+      color: var(--text-light);
+      box-shadow: 0 0 12px rgba(15, 98, 254, 0.4);
+    }
+
+    .timeline-node.danger .timeline-badge {
+      border-color: var(--ibm-magenta);
+      color: var(--ibm-magenta);
+    }
+    .timeline-node.danger.active .timeline-badge {
+      background-color: var(--ibm-magenta);
+      color: var(--text-light);
+    }
+
+    .timeline-year {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+      color: var(--text-dark);
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+    }
+
+    .timeline-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Standard Lists and Text */
+    .bullet-list {
+      list-style-type: none;
+    }
+
+    .bullet-list li {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      position: relative;
+      padding-left: 25px;
+      color: var(--text-dark);
+    }
+
+    .bullet-list li::before {
+      content: "→";
+      color: var(--ibm-blue);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+      font-size: 1.1rem;
+    }
+
+    .highlight-blue {
+      color: var(--ibm-blue);
+      font-weight: 600;
+    }
+
+    /* Stat Highlight component */
+    .stat-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background-color: var(--ibm-blue-light);
+      border-radius: 10px;
+      padding: 30px;
+      margin-top: 20px;
+      border: 1px dashed var(--ibm-blue);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--ibm-blue);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Comparison Box */
+    .comparison-box {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .comparison-header {
+      background-color: var(--ibm-blue-dark);
+      color: var(--text-light);
+      padding: 12px 20px;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .comparison-header.alt {
+      background-color: var(--bg-dark);
+    }
+
+    .comparison-body {
+      padding: 20px;
+      background-color: var(--bg-white);
+    }
+
+    .comparison-body ul {
+      list-style-type: none;
+    }
+
+    .comparison-body li {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .comparison-body li::before {
+      content: "✓";
+      color: var(--ibm-blue);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    .comparison-body.alt li::before {
+      content: "✕";
+      color: var(--ibm-magenta);
+    }
+
+    /* Diagram Hierarchy Style */
+    .hierarchy-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .hierarchy-step {
+      display: flex;
+      align-items: center;
+      background-color: var(--bg-light);
+      border-radius: 6px;
+      padding: 10px 20px;
+      border-left: 6px solid var(--ibm-blue);
+      transition: var(--transition);
+    }
+
+    .hierarchy-step:hover {
+      transform: translateX(10px);
+      background-color: var(--ibm-blue-light);
+    }
+
+    .hierarchy-level {
+      width: 180px;
+      font-weight: 700;
+      color: var(--ibm-blue);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hierarchy-arrow {
+      color: var(--text-gray-light);
+      margin: 0 15px;
+    }
+
+    .hierarchy-content {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+    }
+
+    .hierarchy-example {
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-left: 10px;
+    }
+
+    /* Quote Box */
+    .quote-box {
+      background-color: var(--ibm-blue-light);
+      border-left: 6px solid var(--ibm-blue);
+      padding: 25px;
+      border-radius: 0 10px 10px 0;
+      font-size: 1.4rem;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--ibm-blue-dark);
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .quote-box::after {
+      content: '"';
+      font-size: 8rem;
+      color: rgba(15, 98, 254, 0.05);
+      position: absolute;
+      right: 20px;
+      bottom: -30px;
+      font-family: serif;
+    }
+
+    .quote-author {
+      font-size: 0.95rem;
+      font-style: normal;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-top: 10px;
+      text-align: right;
+    }
+
+    /* Presentation Controls */
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1e1e1e;
+      color: var(--text-light);
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      border-top: 1px solid #2e2e2e;
+      z-index: 10;
+    }
+
+    .controls-left, .controls-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .nav-btn {
+      background-color: #2a2a2a;
+      border: 1px solid #4a4a4a;
+      color: var(--text-light);
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-btn:hover {
+      background-color: var(--ibm-blue);
+      border-color: var(--ibm-blue);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      background-color: #1a1a1a;
+      border-color: #2a2a2a;
+    }
+
+    .progress-bar-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background-color: #e0e0e0;
+      z-index: 100;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--ibm-blue);
+      transition: width 0.3s ease;
+    }
+
+    /* Sidebar Drawer */
+    .drawer-toggle-btn {
+      background-color: transparent;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.9rem;
+    }
+
+    .drawer {
+      position: absolute;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100%;
+      background-color: #161616;
+      box-shadow: 5px 0 25px rgba(0,0,0,0.5);
+      z-index: 1000;
+      transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      color: var(--text-light);
+    }
+
+    .drawer.open {
+      left: 0;
+    }
+
+    .drawer-header {
+      padding: 20px;
+      border-bottom: 1px solid #2e2e2e;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drawer-header h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .drawer-close-btn {
+      background: transparent;
+      border: none;
+      color: #999;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .drawer-menu {
+      flex: 1;
+      overflow-y: auto;
+      list-style: none;
+      padding: 10px 0;
+    }
+
+    .drawer-item {
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: var(--transition);
+      border-left: 3px solid transparent;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .drawer-item:hover, .drawer-item.active {
+      background-color: #2a2a2a;
+      border-left-color: var(--ibm-blue);
+    }
+
+    .drawer-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 999;
+      display: none;
+    }
+
+    .drawer-backdrop.open {
+      display: block;
+    }
+
+    /* Presenter/Speaker Notes Panel */
+    .notes-panel {
+      background-color: #1a1a1a;
+      color: #dfdfdf;
+      padding: 15px 30px;
+      font-size: 0.9rem;
+      max-height: 120px;
+      overflow-y: auto;
+      border-top: 1px solid #2d2d2d;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .notes-header {
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #999;
+    }
+
+    .notes-content {
+      line-height: 1.5;
+    }
+
+    /* Icons and Badges */
+    .icon {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+    }
+
+    /* Responsive scaling for larger screen displays */
+    @media (max-width: 1240px) {
+      .viewport {
+        max-width: 95vw;
+        max-height: calc(95vw * 9 / 16);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Drawer Backdrop -->
+  <div class="drawer-backdrop" id="backdrop"></div>
+
+  <!-- Sidebar Drawer for TOC navigation -->
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <h3>Table of Contents</h3>
+      <button class="drawer-close-btn" id="drawer-close">&times;</button>
+    </div>
+    <ul class="drawer-menu" id="drawer-menu">
+      <!-- Generated dynamically in script -->
+    </ul>
+  </div>
+
+  <!-- Main Presentation Area -->
+  <div id="presentation-container">
+    <div class="viewport">
+      
+      <!-- Progress Bar at top -->
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progress-bar"></div>
+      </div>
+
+      <!-- Slides wrapper -->
+      <div class="slides-wrapper" id="slides-container">
+        
+        <!-- Slide 1: Lead Title -->
+        <section class="slide lead-slide" data-title="Title Slide" data-notes="Welcome to the presentation on IBM's Global Talent Management Strategy. In this presentation, we will dissect IBM's Workforce Management Initiative (WMI) and Globally Integrated Enterprise (GIE) strategy implemented between 2002 and 2009.">
+          <div class="part-tag" style="background-color: rgba(255,255,255,0.15); color: #ffffff;">Case Study</div>
+          <h1>IBM's Global Talent Management Strategy</h1>
+          <p class="subtitle">Transforming HR to Enable a Globally Integrated Enterprise (GIE)</p>
+          
+          <div class="meta-box">
+            <div class="meta-item">
+              Focus Scope:<strong>Workforce Management Initiative (WMI)</strong>
+            </div>
+            <div class="meta-item">
+              Case Duration:<strong>2002 - 2009</strong>
+            </div>
+            <div class="meta-item">
+              Presented By:<strong>Copilot Task Agent</strong>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 2: Agenda -->
+        <section class="slide" data-title="Agenda" data-notes="We have structured this analysis into three major parts corresponding to the case progression: First, Part A outlines why IBM needed to move to a GIE. Part B reviews the system design of WMI and its central Expertise Taxonomy. Part C focuses on how HR was reorganized and the future challenges.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-a-tag">Overview</span>
+              <h2 class="slide-title">Presentation Agenda</h2>
+            </div>
+          </div>
+          <div class="slide-content">
+            <div class="grid-3">
+              <div class="card dark">
+                <h3>PART A</h3>
+                <h4 style="color:#0f62fe;">The GIE & Need for Change</h4>
+                <p>Understanding the concept of Globally Integrated Enterprise, historical crisis, business challenges in 2003, and evidence why legacy systems failed.</p>
+              </div>
+              <div class="card dark" style="border-left-color: var(--ibm-purple);">
+                <h3>PART B</h3>
+                <h4 style="color:#8a3ffc;">Workforce Management</h4>
+                <p>Deep-dive into WMI, its 4 pillars, the design and structural hierarchy of the Expertise Taxonomy, global talent marketplace, and ROI results.</p>
+              </div>
+              <div class="card dark" style="border-left-color: var(--ibm-teal);">
+                <h3>PART C</h3>
+                <h4 style="color:#009d9a;">Globally Integrated HR</h4>
+                <p>Analyzing the redesign of the HR organization, the dual-hatting model, operational globalization, and critical future challenges.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 3: Intro GIE -->
+        <section class="slide" data-title="Part A: The GIE Concept" data-notes="In 2003, HR Leader Randy MacDonald and CEO Sam Palmisano realized globalization was radically changing business. They introduced the Globally Integrated Enterprise model where work is structured globally rather than country-by-country.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-a-tag">Part A</span>
+              <h2 class="slide-title">Globally Integrated Enterprise (GIE)</h2>
+            </div>
+            <span class="slide-subtitle">A New Corporate Paradigm</span>
+          </div>
+          <div class="slide-content">
+            <div class="quote-box">
+              "Doing the right tasks, with the right skills, in the right places."
+              <div class="quote-author">— Sam Palmisano, CEO of IBM (2003)</div>
+            </div>
+            <p style="font-size: 1.1rem; line-height: 1.6; color: var(--text-dark); margin-top: 15px;">
+              The GIE represents a transition from the classic <strong>multinational corporation</strong> (which replicates mini-companies and support organizations in each country of operation) to an integrated operation where service and product delivery are <strong>fully borderless</strong>.
+            </p>
+          </div>
+        </section>
+
+        <!-- Slide 4: Multinational vs GIE -->
+        <section class="slide" data-title="Multinational vs GIE Comparison" data-notes="This comparison side-by-side illustrates the friction of legacy structures. In a multinational, support functions and talent are siloed by borders, whereas GIE seeks global optimization and placement where skills and costs are most optimal.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-a-tag">Part A</span>
+              <h2 class="slide-title">Multinational vs. GIE Comparison</h2>
+            </div>
+          </div>
+          <div class="slide-content">
+            <div class="grid-2">
+              <div class="comparison-box">
+                <div class="comparison-header alt">Traditional Multinational Model</div>
+                <div class="comparison-body alt">
+                  <ul>
+                    <li>Operates as independent country-specific silos.</li>
+                    <li>Support functions (HR, Finance, IT) duplicated in each region.</li>
+                    <li>Work is constrained by physical office locations and local rosters.</li>
+                    <li>Highly rigid structures, restricted knowledge-sharing.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="comparison-box">
+                <div class="comparison-header">Globally Integrated Enterprise (GIE)</div>
+                <div class="comparison-body">
+                  <ul>
+                    <li>Integrates operations, services, and values worldwide.</li>
+                    <li>Resources and tasks are globally optimized.</li>
+                    <li>Work is shifted dynamically where skills and cost align best.</li>
+                    <li>Deep global collaboration and open knowledge sharing.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 5: Importance of Human Capital -->
+        <section class="slide" data-title="Importance of Human Capital" data-notes="As hardware products became commoditized, IBM's margins shifted heavily to service and knowledge delivery. Their 350,000 employees represented the core value of the company, but workforce systems were fragmented.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-a-tag">Part A</span>
+              <h2 class="slide-title">The Strategic Value of Human Capital</h2>
+            </div>
+            <span class="slide-subtitle">Value Shifting from Hardware to Knowledge</span>
+          </div>
+          <div class="slide-content">
+            <div class="grid-2">
+              <div>
+                <ul class="bullet-list" style="margin-top: 10px;">
+                  <li><strong>Knowledge-Based Advantage</strong>: In 2003, hardware products no longer yielded sustainable margins. Competitive advantage depended entirely on employee expertise.</li>
+                  <li><strong>Immense Scale</strong>: IBM was managing approximately <span class="highlight-blue">350,000 employees</span> globally.</li>
+                  <li><strong>Silo Friction</strong>: Existing human capital databases were heavily localized, which meant regional offices had no idea what skills were available in neighboring countries.</li>
+                </ul>
+              </div>
+              <div class="card dark" style="justify-content: center; align-items: center; text-align: center; background: radial-gradient(#1c2e6b, #161616);">
+                <span style="font-size: 4.5rem;">👥</span>
+                <h3 style="margin-top: 15px;">350,000 Employees</h3>
+                <p>Managed globally across 170 countries without a unified coordination language.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 6: Seven Keys to Success -->
+        <section class="slide" data-title="Seven Keys to Success" data-notes="IBM developed these 7 workforce priorities to drive globalization. These range from understanding demographics to rapid skills development. Underpinning this is the core formula of getting the right person in the right place at the right cost.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-a-tag">Part A</span>
+              <h2 class="slide-title">Seven Keys to Success in a GIE</h2>
+            </div>
+            <span class="slide-subtitle">Workforce Priorities Identified by IBM</span>
+          </div>
+          <div class="slide-content">
+            <div style="font-size: 0.95rem; font-weight: 600; text-align: center; margin-bottom: 20px; background-color: var(--ibm-blue-light); padding: 8px; border-radius: 4px; border-left: 4px solid var(--ibm-blue);">
+              Core Principle: Right Person + Right Skills + Right Time + Right Place + Right Cost
+            </div>
+            <div class="grid-4" style="grid-template-columns: repeat(4, 1fr); font-size: 0.8rem;">
+              <div class="card">
+                <h4 style="font-size: 0.9rem;">1. Demographics</h4>
+                <p>Understand workforce capabilities and demographic profiles globally.</p>
+              </div>
+              <div class="card purple">
+                <h4 style="font-size: 0.9rem;">2. Predictive Supply</h4>
+                <p>Accurately forecast labor supply and market demand trends.</p>
+              </div>
+              <div class="card magenta">
+                <h4 style="font-size: 0.9rem;">3. Social Networks</h4>
+                <p>Harness internal collaboration networks to scale knowledge.</p>
+              </div>
+              <div class="card teal">
+                <h4 style="font-size: 0.9rem;">4. Mobile Capability</h4>
+                <p>Enable employees to work securely from any physical location.</p>
+              </div>
+            </div>
+            <div class="grid-3" style="grid-template-columns: repeat(3, 1fr); font-size: 0.8rem; margin-top: 15px;">
+              <div class="card">
+                <h4 style="font-size: 0.9rem;">5. Boundaryless Collab</h4>
+                <p>Promote joint execution and collaboration across regional borders.</p>
+              </div>
+              <div class="card purple">
+                <h4 style="font-size: 0.9rem;">6. Rapid Upskilling</h4>
+                <p>Design learning paths to rapidly develop emerging market capabilities.</p>
+              </div>
+              <div class="card teal">
+                <h4 style="font-size: 0.9rem;">7. Performance Loop</h4>
+                <p>Continuous objective performance evaluation and fast feedback.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 7: History Timeline -->
+        <section class="slide" data-title="IBM's Transformation History" data-notes="A look at the historical trajectory helps frame the 2003 situation. From the Watson golden years, IBM hit a massive crisis in the early 1990s with over $2.8B loss, followed by Gerstner's turnaround focusing on customer solutions and Palmisano's GIE concept.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-a-tag">Part A</span>
+              <h2 class="slide-title">IBM's Corporate Trajectory</h2>
+            </div>
+            <span class="slide-subtitle">From IBM 360 to the Globally Integrated Enterprise</span>
+          </div>
+          <div class="slide-content">
+            <div class="timeline">
+              <div class="timeline-node active">
+                <div class="timeline-badge">1</div>
+                <div class="timeline-year">1911 - 1980s</div>
+                <div class="timeline-title">Watson Sr. Era & Growth</div>
+                <div class="timeline-desc">Emphasis on strong values, loyalty. Major R&D: IBM 360 computer, FORTRAN.</div>
+              </div>
+              <div class="timeline-node danger active">
+                <div class="timeline-badge">!</div>
+                <div class="timeline-year">1990 - 1992</div>
+                <div class="timeline-title">Crisis Era</div>
+                <div class="timeline-desc">Loss of $2.8B in 1991. Bureaucracy, slow decisions, failed to adapt to PCs.</div>
+              </div>
+              <div class="timeline-node active">
+                <div class="timeline-badge">3</div>
+                <div class="timeline-year">1993 - 2001</div>
+                <div class="timeline-title">Gerstner Turnaround</div>
+                <div class="timeline-desc">Drastic cost-reduction, launched E-business, focus on integrated solutions.</div>
+              </div>
+              <div class="timeline-node active">
+                <div class="timeline-badge">4</div>
+                <div class="timeline-year">2002 - 2009</div>
+                <div class="timeline-title">Palmisano & WMI</div>
+                <div class="timeline-desc">"One IBM" strategic push. Pioneered the GIE and initiated the WMI.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 8: Business Challenges 2003 -->
+        <section class="slide" data-title="Business Challenges in 2003" data-notes="IBM's financial structure in 2003 was heavily dependent on the Americas, but they set a massive strategic target to have 70% of revenue coming from outside the Americas by 2009. This meant managing global resources with high precision.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-a-tag">Part A</span>
+              <h2 class="slide-title">2003 Business Realities</h2>
+            </div>
+            <span class="slide-subtitle">The Geographical Shift in Revenue Goals</span>
+          </div>
+          <div class="slide-content">
+            <div class="grid-2">
+              <div class="card dark" style="background-color: var(--ibm-blue-dark); justify-content: center;">
+                <span style="font-size: 2.2rem; font-weight: 700; color: #a6c8ff;">Revenue Target (by 2009)</span>
+                <span style="font-size: 5rem; font-weight: 800; line-height: 1; color: var(--text-light);">70%</span>
+                <p style="color: #cbd5e1; font-size: 1rem; margin-top: 10px;">of overall corporate revenue was targeted to come from outside the Americas region.</p>
+              </div>
+              <div>
+                <h4 style="font-size: 1.1rem; margin-bottom: 15px;">2003 Revenue Distribution ($B):</h4>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+                      <span>United States (Americas Base)</span>
+                      <strong>$34.8 B (39%)</strong>
+                    </div>
+                    <div style="background-color: #e0e0e0; height: 10px; border-radius: 5px; overflow: hidden;">
+                      <div style="background-color: var(--ibm-blue); width: 39%; height: 100%;"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+                      <span>Europe / Middle East / Africa (EMEA)</span>
+                      <strong>$29.0 B (32.6%)</strong>
+                    </div>
+                    <div style="background-color: #e0e0e0; height: 10px; border-radius: 5px; overflow: hidden;">
+                      <div style="background-color: var(--ibm-purple); width: 32.6%; height: 100%;"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+                      <span>Asia-Pacific</span>
+                      <strong>$19.0 B (21.3%)</strong>
+                    </div>
+                    <div style="background-color: #e0e0e0; height: 10px; border-radius: 5px; overflow: hidden;">
+                      <div style="background-color: var(--ibm-teal); width: 21.3%; height: 100%;"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+                      <span>Other Regions</span>
+                      <strong>$6.1 B (7.1%)</strong>
+                    </div>
+                    <div style="background-color: #e0e0e0; height: 10px; border-radius: 5px; overflow: hidden;">
+                      <div style="background-color: var(--ibm-magenta); width: 7.1%; height: 100%;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 9: Evidence That Change Was Needed -->
+        <section class="slide" data-title="Evidence for Change" data-notes="Four big pieces of evidence showed that localized HR models were failing: 1. Low utilization (consultants sitting idle on benches while other projects starved); 2. Service bottlenecks; 3. Disconnected applicant, contractor, and full-time silos; 4. Loss of career visibility for talent.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-a-tag">Part A</span>
+              <h2 class="slide-title">Four Cracks in the System</h2>
+            </div>
+            <span class="slide-subtitle">Clear Symptoms of Dysfunctional Talent Management</span>
+          </div>
+          <div class="slide-content">
+            <div class="grid-4">
+              <div class="card">
+                <span style="font-size: 1.8rem; margin-bottom: 5px;">📉</span>
+                <h3>Low Utilization</h3>
+                <p>Employees sitting "on the bench" (idle) while critical projects in other hubs faced massive talent shortages.</p>
+              </div>
+              <div class="card purple">
+                <span style="font-size: 1.8rem; margin-bottom: 5px;">⏳</span>
+                <h3>Bottlenecks</h3>
+                <p>Extreme delays in matching client contracts with appropriate experts, causing delays and client friction.</p>
+              </div>
+              <div class="card magenta">
+                <span style="font-size: 1.8rem; margin-bottom: 5px;">⛓️</span>
+                <h3>Siloed Talent</h3>
+                <p>Managed regular staff, applicants, and external contractors on independent systems. Duplicate hiring costs.</p>
+              </div>
+              <div class="card teal">
+                <span style="font-size: 1.8rem; margin-bottom: 5px;">🚪</span>
+                <h3>Attrition Risk</h3>
+                <p>Lack of global skill transparency meant career mobility relied on local personal networks, alienating top talent.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 10: No Common Language -->
+        <section class="slide" data-title="The Language Limitation" data-notes="The root of this systemic failure was the absolute lack of a common language. Different countries described identical jobs differently. It was impossible to compare competencies globally.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-a-tag">Part A</span>
+              <h2 class="slide-title">The "No Common Language" Crisis</h2>
+            </div>
+            <span class="slide-subtitle">The Core Structural Limitation</span>
+          </div>
+          <div class="slide-content">
+            <div class="grid-2">
+              <div style="display: flex; flex-direction: column; justify-content: center;">
+                <h3 style="font-size: 1.4rem; color: var(--ibm-magenta); margin-bottom: 15px;">The Legacy Mess:</h3>
+                <ul class="bullet-list">
+                  <li>Different regions used differing job titles for identical work.</li>
+                  <li>The exact same job title represented wildly different capabilities in separate countries.</li>
+                  <li>Workforce coordinators had no standardized framework (like a "product SKU") to evaluate skills.</li>
+                </ul>
+              </div>
+              <div class="card dark" style="background-color: var(--bg-dark); border-left-color: var(--ibm-magenta); padding: 30px; justify-content: center;">
+                <h4 style="color: var(--ibm-magenta); font-size: 1.3rem;">The Real-World Consequence:</h4>
+                <p style="font-size: 1rem; line-height: 1.6; margin-top: 10px;">
+                  "We could not look across IBM and find who had specific competencies. If we needed a database expert in Madrid, we had to rely on a local manager's rolodex instead of executing a unified corporate search."
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 11: Part B: WMI Pillars -->
+        <section class="slide" data-title="Part B: WMI Overview" data-notes="To resolve this, IBM built WMI: the Workforce Management Initiative. Its objective was to treat skills like inventory in a supply chain, composed of four primary pillars.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-b-tag">Part B</span>
+              <h2 class="slide-title">The Workforce Management Initiative (WMI)</h2>
+            </div>
+            <span class="slide-subtitle">Managing Talent Like a Supply Chain</span>
+          </div>
+          <div class="slide-content">
+            <p style="margin-bottom: 20px; font-size: 1.05rem; line-height: 1.5;">
+              WMI was IBM's blueprint to build a comprehensive global database that tracked, forecast, and deployed human capital resources across all business lines and physical borders.
+            </p>
+            <div class="grid-4">
+              <div class="card">
+                <h3>1. Resource Mgmt</h3>
+                <p>Inventories actual skills, forecasts client demand, schedules capacity, and dynamically rebalances staffing.</p>
+              </div>
+              <div class="card purple">
+                <h3>2. Talent & Mobility</h3>
+                <p>Establishes standard global taxonomies, employee profiles, and automated decision-making matching algorithms.</p>
+              </div>
+              <div class="card magenta">
+                <h3>3. Learning</h3>
+                <p>Maps educational material to specific skills; conducts assessments to automatically suggest target classes.</p>
+              </div>
+              <div class="card teal">
+                <h3>4. Vendor Mgmt</h3>
+                <p>Brings contractors and external agencies into the same skill taxonomy for transparent capacity planning.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 12: Expertise Taxonomy -->
+        <section class="slide" data-title="Expertise Taxonomy Hierarchy" data-notes="This is the centerpiece of WMI: The Expertise Taxonomy. It standardized definitions across five hierarchical levels. For instance, from IT Specialist at level 1 down to the actual specific skill 'Implement Asset Management Services' at level 5.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-b-tag">Part B</span>
+              <h2 class="slide-title">The Expertise Taxonomy</h2>
+            </div>
+            <span class="slide-subtitle">The 5-Level Architecture of Global Skill Definition</span>
+          </div>
+          <div class="slide-content">
+            <div class="hierarchy-container">
+              <div class="hierarchy-step">
+                <div class="hierarchy-level">1. Primary Job Category (PJC)</div>
+                <div class="hierarchy-arrow">➔</div>
+                <div class="hierarchy-content">IT Specialist</div>
+              </div>
+              <div class="hierarchy-step">
+                <div class="hierarchy-level" style="color: var(--ibm-purple); border-left-color: var(--ibm-purple);">2. Secondary Job Category (SJC)</div>
+                <div class="hierarchy-arrow">➔</div>
+                <div class="hierarchy-content">Technical Services</div>
+              </div>
+              <div class="hierarchy-step">
+                <div class="hierarchy-level" style="color: var(--ibm-magenta); border-left-color: var(--ibm-magenta);">3. Job Role (JR)</div>
+                <div class="hierarchy-arrow">➔</div>
+                <div class="hierarchy-content">Client Infrastructure Specialist</div>
+              </div>
+              <div class="hierarchy-step">
+                <div class="hierarchy-level" style="color: var(--ibm-teal); border-left-color: var(--ibm-teal);">4. Job Role Skill Set (JRSS)</div>
+                <div class="hierarchy-arrow">➔</div>
+                <div class="hierarchy-content">Asset Reuse</div>
+              </div>
+              <div class="hierarchy-step" style="background-color: var(--ibm-blue-light); border-left-color: var(--ibm-blue-dark);">
+                <div class="hierarchy-level" style="color: var(--ibm-blue-dark);">5. Specific Skill</div>
+                <div class="hierarchy-arrow">➔</div>
+                <div class="hierarchy-content" style="font-weight: 700;">Implement Asset Management Services</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 13: Benefits of Taxonomy -->
+        <section class="slide" data-title="Taxonomy Benefits" data-notes="This table demonstrates the immediate benefits to all three major stakeholders: employees got transparent career paths, managers got faster project matching, and IBM drastically reduced its bench-time waste.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-b-tag">Part B</span>
+              <h2 class="slide-title">Multi-Stakeholder Benefits</h2>
+            </div>
+            <span class="slide-subtitle">Value Generation Across the Enterprise</span>
+          </div>
+          <div class="slide-content">
+            <div class="grid-3">
+              <div class="card">
+                <h3 style="color: var(--ibm-blue);"><span style="font-size: 1.5rem;">👤</span> For Employees</h3>
+                <ul style="margin-top: 10px;">
+                  <li>Identify precise career and vertical promotion steps.</li>
+                  <li>Run gap analysis of their own skills against future desired jobs.</li>
+                  <li>Receive customized learning paths and course suggestions automatically.</li>
+                </ul>
+              </div>
+              <div class="card purple">
+                <h3 style="color: var(--ibm-purple);"><span style="font-size: 1.5rem;">👔</span> For Managers</h3>
+                <ul style="margin-top: 10px;">
+                  <li>Instantly query the global database for specialized project roles.</li>
+                  <li>Quickly locate global talent supply without administrative roadblocks.</li>
+                  <li>Proactively identify skill deficiencies inside localized teams.</li>
+                </ul>
+              </div>
+              <div class="card teal">
+                <h3 style="color: var(--ibm-teal);"><span style="font-size: 1.5rem;">🏢</span> For IBM Corporation</h3>
+                <ul style="margin-top: 10px;">
+                  <li>Drastically increased overall billable utilization rates.</li>
+                  <li>Eliminated redundant contractor hires via better internal mapping.</li>
+                  <li>Obtained absolute transparency of global strategic resource levels.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 14: HR Role & Governance -->
+        <section class="slide" data-title="Governance and Role Change" data-notes="A critical shift occurred: HR surrendered the task of writing job descriptions. Instead, practitioners who did the work wrote them, while HR focused strictly on global consistency and governance via Stewards and Boards.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-b-tag">Part B</span>
+              <h2 class="slide-title">HR's Paradigm Shift & Governance</h2>
+            </div>
+            <span class="slide-subtitle">From "Author of Jobs" to "System Facilitator"</span>
+          </div>
+          <div class="slide-content">
+            <div class="grid-2">
+              <div class="card dark" style="background-color: var(--bg-dark); border-left-color: var(--ibm-blue); justify-content: center;">
+                <h3 style="font-size: 1.3rem; margin-bottom: 12px; color: var(--text-light);">Governance Rule:</h3>
+                <p style="font-size: 1.1rem; font-style: italic; line-height: 1.5;">
+                  "HR should not define the work; the practitioners doing the work are the real subject-matter experts. HR's role is to facilitate the system and enforce standard consistency."
+                </p>
+              </div>
+              <div>
+                <div style="margin-bottom: 20px;">
+                  <h4 style="font-weight: 700; color: var(--ibm-purple); margin-bottom: 6px;">1. Taxonomy Stewards</h4>
+                  <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;">Active business leaders who monitor standard definitions, review localized edits, and guarantee the definitions remain practical and valid.</p>
+                </div>
+                <div>
+                  <h4 style="font-weight: 700; color: var(--ibm-teal); margin-bottom: 6px;">2. Governance Board</h4>
+                  <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;">Corporate oversight committee responsible for resolving taxonomy disputes, maintaining world-wide structural consistency, and approving updates.</p>
+                </div>
+                <div style="margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 10px; font-size: 0.85rem; font-weight: 600; color: var(--ibm-magenta);">
+                  ✨ Simplification: Cut total role definitions from 650 (2005) down to under 300 (2009).
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 15: Global Talent Marketplace -->
+        <section class="slide" data-title="Global Talent Marketplace" data-notes="IBM brought employees, contractors, and job applicants into a single database. They automated the talent matching process and linked over 40,000 learning resources directly to specific taxonomy skills.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-b-tag">Part B</span>
+              <h2 class="slide-title">Global Talent Marketplace & Learning</h2>
+            </div>
+            <span class="slide-subtitle">A Standardized Talent Ecosystem</span>
+          </div>
+          <div class="slide-content">
+            <div class="grid-2">
+              <div class="card">
+                <h3>One-Stop Talent Integration</h3>
+                <p style="margin-bottom: 12px; font-size: 0.85rem;">WMI integrated three separate pools into a unified system:</p>
+                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.8rem; font-weight: 600;">
+                  <div style="background-color: var(--ibm-blue-light); padding: 8px; border-radius: 4px; border-left: 3px solid var(--ibm-blue);">Full-Time Staff (Internal Mobility)</div>
+                  <div style="background-color: #f3e8ff; padding: 8px; border-radius: 4px; border-left: 3px solid var(--ibm-purple);">Active Job Applicants (Pipeline Sourcing)</div>
+                  <div style="background-color: #e5f6f4; padding: 8px; border-radius: 4px; border-left: 3px solid var(--ibm-teal);">External Contractors (Variable Capacity)</div>
+                </div>
+              </div>
+              <div class="card purple">
+                <h3>Integration with L&D</h3>
+                <ul style="font-size: 0.85rem;">
+                  <li>Linked over <strong style="color: var(--ibm-purple);">40,000 learning assets</strong> directly to taxonomy nodes.</li>
+                  <li>Automated skill assessments identify precise individual "knowledge gaps".</li>
+                  <li>System automatically outputs customized training modules to bridge required project gaps in real time.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 16: Financial & Business Results -->
+        <section class="slide" data-title="Financial and WMI Results" data-notes="The direct financial returns were outstanding: over $1.5 billion in total benefits from a $230 million five-year investment, which represents a massive ROI, adding $453M directly to their bottom line.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-b-tag">Part B</span>
+              <h2 class="slide-title">Direct Business Impact & ROI</h2>
+            </div>
+            <span class="slide-subtitle">The Metrics of Success (2003 - 2008)</span>
+          </div>
+          <div class="slide-content">
+            <div class="stat-container">
+              <div class="stat-item">
+                <div class="stat-number">$230 M</div>
+                <div class="stat-label">Total Investment</div>
+                <div class="stat-desc">5-Year Program Spend</div>
+              </div>
+              <div class="stat-item" style="border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); padding: 0 40px;">
+                <div class="stat-number" style="color: var(--ibm-purple);">$1.5 B</div>
+                <div class="stat-label" style="color: var(--ibm-purple);">Total Benefits</div>
+                <div class="stat-desc">Identified Value Yielded</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number" style="color: var(--ibm-teal);">$453 M</div>
+                <div class="stat-label" style="color: var(--ibm-teal);">Bottom-Line Savings</div>
+                <div class="stat-desc">Direct Cash Reclaimed</div>
+              </div>
+            </div>
+            <div class="grid-2" style="margin-top: 20px;">
+              <div class="card dark" style="background-color: var(--bg-dark); padding: 15px; border-left-color: var(--ibm-teal); flex-direction: row; align-items: center; gap: 15px;">
+                <span style="font-size: 2.2rem;">📈</span>
+                <div>
+                  <h4 style="margin-bottom: 4px; color: var(--text-light);">+9.0% Utilization Rate</h4>
+                  <p style="font-size: 0.8rem; color: #ccc;">Billable practitioner utilization rose 9% between 2003 and 2008, generating massive extra service revenue.</p>
+                </div>
+              </div>
+              <div class="card dark" style="background-color: var(--bg-dark); padding: 15px; border-left-color: var(--ibm-blue); flex-direction: row; align-items: center; gap: 15px;">
+                <span style="font-size: 2.2rem;">🎯</span>
+                <div>
+                  <h4 style="margin-bottom: 4px; color: var(--text-light);">>90% Role Fill Rates</h4>
+                  <p style="font-size: 0.8rem; color: #ccc;">Unified supply chain model enabled coordinators to immediately fill vacancies globally above 90% accuracy.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 17: Part C: HR Lifecycle -->
+        <section class="slide" data-title="Part C: HR Integration" data-notes="Part C is about building a globally integrated HR function. This lifecycle shows how the taxonomy and profiles (SEAS, CV Wizard, Learning@IBM, Metro) are integrated into Planning, Sourcing, Development, and Deployment.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-c-tag">Part C</span>
+              <h2 class="slide-title">GIE HR: The Talent Life Cycle</h2>
+            </div>
+            <span class="slide-subtitle">Embedding WMI into Every Career Phase</span>
+          </div>
+          <div class="slide-content">
+            <div class="grid-4" style="text-align: center;">
+              <div class="card" style="border-left: none; border-top: 4px solid var(--ibm-blue); text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 10px;">📊</div>
+                <h4 style="justify-content: center;">1. PLANNING</h4>
+                <p style="font-size: 0.8rem;">Demand Forecasting<br>Capacity Modeling<br>Skills Inventory</p>
+              </div>
+              <div class="card purple" style="border-left: none; border-top: 4px solid var(--ibm-purple); text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 10px;">🔍</div>
+                <h4 style="justify-content: center;">2. ACQUISITION</h4>
+                <p style="font-size: 0.8rem;">Sourcing Pipeline<br>Standardized CVs<br>Contractor Onboarding</p>
+              </div>
+              <div class="card magenta" style="border-left: none; border-top: 4px solid var(--ibm-magenta); text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 10px;">🧠</div>
+                <h4 style="justify-content: center;">3. DEVELOPMENT</h4>
+                <p style="font-size: 0.8rem;">Directed Learning<br>Skills Assessment<br>Career Path Mapping</p>
+              </div>
+              <div class="card teal" style="border-left: none; border-top: 4px solid var(--ibm-teal); text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 10px;">🚀</div>
+                <h4 style="justify-content: center;">4. DEPLOYMENT</h4>
+                <p style="font-size: 0.8rem;">Algorithmic Staffing<br>Global Mobility<br>Utilization Optimization</p>
+              </div>
+            </div>
+            <div style="margin-top: 20px; text-align: center; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); background-color: var(--bg-light); padding: 10px; border-radius: 4px;">
+              Powered by Core Technologies: <span class="highlight-blue">SEAS</span> (Profile Assessment) • <span class="highlight-blue">CV Wizard</span> (Taxonomy Resume) • <span class="highlight-blue">Metro</span> • <span class="highlight-blue">Global Opportunity Marketplace</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 18: HR Redesign -->
+        <section class="slide" data-title="Redesign of HR Structure" data-notes="IBM also completely reorganized HR itself, shifting from traditional siloed departments to Globally Integrated Support Functions (GISF). This consolidated redundant roles and optimized operating efficiency globally.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-c-tag">Part C</span>
+              <h2 class="slide-title">Redesign of the HR Function</h2>
+            </div>
+            <span class="slide-subtitle">Shattering Functional Silos for Global Service Delivery</span>
+          </div>
+          <div class="slide-content">
+            <div class="grid-2">
+              <div class="card dark" style="background-color: var(--bg-dark); border-left-color: var(--ibm-magenta); justify-content: center;">
+                <h3 style="color: var(--text-light); margin-bottom: 10px;">The Legacy HR Silos:</h3>
+                <p style="font-size: 0.85rem; line-height: 1.5; color: #ccc;">
+                  Compensation, Sourcing, Diversity, and Training previously operated as separate, regional, uncoordinated departments. This caused functional friction, slower decisions, and duplicated cost structures.
+                </p>
+              </div>
+              <div class="card" style="border-left-color: var(--ibm-teal);">
+                <h3>Globally Integrated Support Functions (GISF)</h3>
+                <p style="font-size: 0.85rem; line-height: 1.5; margin-bottom: 10px;">HR consolidated into integrated global streams:</p>
+                <ul style="font-size: 0.8rem;">
+                  <li><strong>Recruitment</strong> (Unified staffing & acquisition processes)</li>
+                  <li><strong>Compensation</strong> (Executive pay, incentive management)</li>
+                  <li><strong>Learning & Dev</strong> (Leadership & tech training globally)</li>
+                  <li><strong>Workforce Programs</strong> (Diversity, mobility, global planning)</li>
+                  <li><strong>HR Service Delivery</strong> (Service hubs, operational queries)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 19: Dual-Hatting Model -->
+        <section class="slide" data-title="Dual-Hatting Model" data-notes="This is the legendary 'Dual-Hatting Model', arguably the most critical structural innovation of GIE HR. Senior HR leaders had to hold two responsibilities simultaneously: running a global functional stream, and serving as a business partner to a business unit.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-c-tag">Part C</span>
+              <h2 class="slide-title">The Dual-Hatting Model</h2>
+            </div>
+            <span class="slide-subtitle">IBM's Structural Masterstroke</span>
+          </div>
+          <div class="slide-content">
+            <div class="grid-2">
+              <div>
+                <ul class="bullet-list" style="margin-top: 10px;">
+                  <li><strong>Definition</strong>: Senior HR Executives held <span class="highlight-blue">two critical positions simultaneously</span>.</li>
+                  <li><strong>Example</strong>: The Head of Global Recruitment also served as the HR Business Partner for Global Business Services (GBS).</li>
+                  <li><strong>Why It Succeeded</strong>: It guaranteed that functional designers of HR tools faced the direct daily operational feedback of business users.</li>
+                  <li><strong>Bureaucracy Killer</strong>: Slashed corporate alignment delays and eliminated isolated project designs.</li>
+                </ul>
+              </div>
+              <div class="card dark" style="background: linear-gradient(135deg, #1d1d1d, #121212); border-left-color: var(--ibm-purple); justify-content: center; align-items: center; text-align: center; padding: 30px;">
+                <div style="font-weight: 800; font-size: 1.3rem; color: var(--ibm-purple); text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px;">The Twin Pillars</div>
+                <div style="background-color: rgba(138,63,252,0.1); border: 1px solid var(--ibm-purple); padding: 12px; border-radius: 6px; width: 100%; margin-bottom: 10px;">
+                  <strong>1. Global Functional Leader</strong><br><span style="font-size: 0.8rem; color: #bbb;">Designs tools & rules globally</span>
+                </div>
+                <div style="font-size: 1.2rem; margin: 5px 0;">➕</div>
+                <div style="background-color: rgba(0,157,154,0.1); border: 1px solid var(--ibm-teal); padding: 12px; border-radius: 6px; width: 100%;">
+                  <strong>2. HR Business Partner</strong><br><span style="font-size: 0.8rem; color: #bbb;">Answers for a business unit's performance</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 20: Process Excellence & Ops -->
+        <section class="slide" data-title="Process Excellence & Operations" data-notes="IBM treated HR operations with the same rigor as supply chain logistics. They relocated transactional HR services to regional shared-service hubs (especially in low-cost, high-demand areas like Asia), enabling 24/7 coverage.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-c-tag">Part C</span>
+              <h2 class="slide-title">Process Excellence & Global Operations</h2>
+            </div>
+            <span class="slide-subtitle">Operating HR Like a Precision Logistics Network</span>
+          </div>
+          <div class="slide-content">
+            <div class="grid-3">
+              <div class="card">
+                <h3>⚙️ Operational Rigor</h3>
+                <p style="font-size: 0.85rem;">IBM applied supply-chain efficiency guidelines to HR: <strong>Simplification, Standardization, and Automation</strong>. Shifted HR from administrative-driven to data-driven.</p>
+              </div>
+              <div class="card purple">
+                <h3>🌏 Global Shared Hubs</h3>
+                <p style="font-size: 0.85rem;">Transactional HR actions were moved out of country offices and consolidated in low-cost, high-demand strategic hubs (like India/Asia) for <strong>24/7 coverage</strong>.</p>
+              </div>
+              <div class="card teal">
+                <h3>👥 Execution Engine</h3>
+                <p style="font-size: 0.85rem;">Central governance was run by approximately <strong>100 centralized experts</strong>, while execution across departments was supported by over <strong>500+ HR Partners</strong>.</p>
+              </div>
+            </div>
+            <div class="quote-box" style="font-size: 1.15rem; padding: 15px 25px; margin-top: 15px;">
+              "The Workforce Management Initiative allowed us to 'skate to where the puck is going to be'—anticipating skill demands rather than merely reacting."
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 21: Future Challenges & Dilemmas -->
+        <section class="slide" data-title="Future Challenges and Dilemmas" data-notes="With deep data analytics came structural challenges. First, HR managers lacked data analytics capability. Second, they risked becoming too transactional and losing the 'soft' human values like trust and culture.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-c-tag">Part C</span>
+              <h2 class="slide-title">Strategic Challenges & Dilemmas</h2>
+            </div>
+            <span class="slide-subtitle">The Friction Between Analytics and Empathy</span>
+          </div>
+          <div class="slide-content">
+            <div class="grid-2">
+              <div class="card dark" style="background-color: var(--bg-dark); border-left-color: var(--ibm-magenta); padding: 20px;">
+                <h3 style="color: var(--ibm-magenta);">1. Data vs. Human Values</h3>
+                <p style="font-size: 0.85rem; line-height: 1.5; color: #ccc;">
+                  <strong>Risk of Hyper-Optimization</strong>: By viewing employees solely as standard competency profiles (like warehouse SKUs), IBM risked losing the vital "soft" side of human relations: personal loyalty, trust, commitment, and company culture.
+                </p>
+              </div>
+              <div class="card" style="border-left-color: var(--ibm-purple); padding: 20px;">
+                <h3 style="color: var(--ibm-purple);">2. Evolving Competency Needs</h3>
+                <p style="font-size: 0.85rem; line-height: 1.5; margin-bottom: 10px;">
+                  <strong>HR Skills Gap</strong>: Traditional HR backgrounds did not train managers in database systems, data science, or predictive metrics modeling, requiring the development of a new "hybrid professional."
+                </p>
+                <p style="font-size: 0.85rem; line-height: 1.5;">
+                  <strong>Manager as Talent Sourced</strong>: Expected operational business line managers outside HR to act as the primary strategic planners of their team's future talent.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 22: Key Lessons -->
+        <section class="slide" data-title="Key Case Lessons" data-notes="Four core lessons stand out from IBM's strategy: HR must align directly with business goals, standardized taxonomies are a prerequisite for global mobility, skills should be managed like inventory, and analytics must always balance with human care.">
+          <div class="slide-header">
+            <div class="slide-title-group">
+              <span class="part-tag part-c-tag">Summary</span>
+              <h2 class="slide-title">Key Strategic Takeaways</h2>
+            </div>
+            <span class="slide-subtitle">Lessons in Global Organization Design</span>
+          </div>
+          <div class="slide-content">
+            <div class="grid-2">
+              <div>
+                <ul class="bullet-list" style="font-size: 0.95rem;">
+                  <li><strong>Strategic Partner Role</strong>: Human Resources must transition from an administrative gatekeeper to a direct strategic business driver.</li>
+                  <li><strong>Common Taxonomy</strong>: Standardization of role names and skill lists is the non-negotiable prerequisite to global resource deployment.</li>
+                </ul>
+              </div>
+              <div>
+                <ul class="bullet-list" style="font-size: 0.95rem;">
+                  <li><strong>Supply Chain Discipline</strong>: Talent can be modeled with supply-chain predictive logistics, drastically reducing bench overhead.</li>
+                  <li><strong>Dual-Hat Integration</strong>: Linking tool designers with business-facing operations creates rapid feedback loops that eliminate bureaucratic bloat.</li>
+                </ul>
+              </div>
+            </div>
+            <div style="background-color: var(--ibm-blue-light); padding: 15px; border-radius: 8px; border-left: 5px solid var(--ibm-blue); font-weight: 600; font-size: 0.95rem; margin-top: 25px; color: var(--ibm-blue-dark); text-align: center;">
+              Success lies in balancing data analytics (the hard side) with cultural and empathetic human values (the soft side).
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 23: Conclusion One-Line -->
+        <section class="slide lead-slide" data-title="Case Summary Conclusion" data-notes="In conclusion, IBM's Workforce Management Initiative (WMI) represents the gold standard for global HR transformation. By mapping, standardizing, and optimizing talent dynamically, they turned HR into a strategic supply chain yielding over $1.5 billion in total benefits. This concludes our presentation. Thank you.">
+          <div class="part-tag" style="background-color: var(--ibm-blue); color: #ffffff;">Executive Summary</div>
+          <h1 style="font-size: 2.5rem; line-height: 1.25; margin-bottom: 30px;">
+            IBM's Workforce Management Initiative transformed HR into a globally integrated, data-driven strategic asset—optimizing borderless talent deployment and yielding over <span style="color: #a6c8ff;">$1.5 Billion</span> in business benefits.
+          </h1>
+          <div style="display: flex; gap: 30px; font-size: 1rem; color: #cbd5e1; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; width: 100%;">
+            <span>Case Study: <strong>IBM Global Talent Management</strong></span>
+            <span>Framework: <strong>Expertise Taxonomy / WMI</strong></span>
+            <span>Platform: <strong>Globally Integrated Enterprise</strong></span>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Controls Bar at bottom of viewport -->
+      <div class="controls-bar">
+        <div class="controls-left">
+          <button class="drawer-toggle-btn" id="drawer-toggle">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+            Slides Map
+          </button>
+        </div>
+        
+        <div class="slide-counter" id="slide-counter">Slide 1 of 23</div>
+        
+        <div class="controls-right">
+          <button class="nav-btn" id="prev-btn" disabled>
+            ◀ Prev
+          </button>
+          <button class="nav-btn" id="next-btn">
+            Next ▶
+          </button>
+        </div>
+      </div>
+
+      <!-- Presenter Notes Section -->
+      <div class="notes-panel">
+        <div class="notes-header">Presenter Speaker Notes</div>
+        <div class="notes-content" id="notes-content">Presenter notes will appear here...</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Slide Navigation Logic
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const counter = document.getElementById('slide-counter');
+    const progressBar = document.getElementById('progress-bar');
+    const notesContent = document.getElementById('notes-content');
+    
+    // Sidebar Drawer elements
+    const drawer = document.getElementById('drawer');
+    const drawerToggle = document.getElementById('drawer-toggle');
+    const drawerClose = document.getElementById('drawer-close');
+    const backdrop = document.getElementById('backdrop');
+    const drawerMenu = document.getElementById('drawer-menu');
+
+    let currentSlideIndex = 0;
+
+    // Initialize Sidebar Menu (TOC)
+    slides.forEach((slide, idx) => {
+      const title = slide.getAttribute('data-title') || `Slide ${idx + 1}`;
+      const partTag = slide.querySelector('.part-tag');
+      let prefix = "";
+      if (partTag) {
+        prefix = `[${partTag.textContent.trim()}] `;
+      }
+      
+      const li = document.createElement('li');
+      li.className = `drawer-item ${idx === 0 ? 'active' : ''}`;
+      li.textContent = `${idx + 1}. ${title}`;
+      li.addEventListener('click', () => {
+        goToSlide(idx);
+        closeDrawer();
+      });
+      drawerMenu.appendChild(li);
+    });
+
+    const drawerItems = document.querySelectorAll('.drawer-item');
+
+    function updatePresentation() {
+      // Manage active classes on slides
+      slides.forEach((slide, idx) => {
+        slide.className = 'slide'; // Reset classes
+        if (idx === currentSlideIndex) {
+          slide.classList.add('active');
+        } else if (idx < currentSlideIndex) {
+          slide.classList.add('exit-left');
+        }
+      });
+
+      // Update slide counter
+      counter.textContent = `Slide ${currentSlideIndex + 1} of ${slides.length}`;
+
+      // Update progress bar
+      const progressPercent = ((currentSlideIndex) / (slides.length - 1)) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+
+      // Update disabled buttons
+      prevBtn.disabled = currentSlideIndex === 0;
+      nextBtn.disabled = currentSlideIndex === slides.length - 1;
+
+      // Update sidebar active item
+      drawerItems.forEach((item, idx) => {
+        if (idx === currentSlideIndex) {
+          item.classList.add('active');
+          // Scroll active item into view inside drawer if needed
+          item.scrollIntoView({ block: 'nearest' });
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      // Update speaker notes
+      const notes = slides[currentSlideIndex].getAttribute('data-notes') || "No presenter notes for this slide.";
+      notesContent.textContent = notes;
+
+      // Update URL hash
+      window.location.hash = `#/${currentSlideIndex + 1}`;
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < slides.length) {
+        currentSlideIndex = index;
+        updatePresentation();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlideIndex < slides.length - 1) {
+        currentSlideIndex++;
+        updatePresentation();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlideIndex > 0) {
+        currentSlideIndex--;
+        updatePresentation();
+      }
+    }
+
+    // Event Listeners for Nav Buttons
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      } else if (e.key === 'Home') {
+        goToSlide(0);
+      } else if (e.key === 'End') {
+        goToSlide(slides.length - 1);
+      }
+    });
+
+    // Drawer Open/Close Logic
+    function openDrawer() {
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+    }
+
+    drawerToggle.addEventListener('click', openDrawer);
+    drawerClose.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+
+    // Handle URL Hash on Load
+    function handleHash() {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#/')) {
+        const pageNum = parseInt(hash.substring(2));
+        if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= slides.length) {
+          currentSlideIndex = pageNum - 1;
+        }
+      }
+      updatePresentation();
+    }
+
+    window.addEventListener('hashchange', handleHash);
+    
+    // Initial Load
+    handleHash();
+  </script>
+</body>
+</html>
