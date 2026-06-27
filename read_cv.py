@@ -9,4 +9,5 @@ def read_docx(filename):
     return '\n'.join(fullText)
 
 if __name__ == '__main__':
-    print(read_docx('Adnan+CV+Updated.docx'))
+    filename = sys.argv[1] if len(sys.argv) > 1 else 'Adnan+CV+Updated.docx'
+    print(read_docx(filename))

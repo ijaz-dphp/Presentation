@@ -13,8 +13,8 @@ Highly motivated IT and Administrative professional with over 12 years of experi
 * **Bachelor's Degree in [Insert Subject]**, [Insert University Name], [Graduation Year]
   * [Insert GPA or Academic Honors if applicable]
 
-## 3. Research Experience & Publications
-* [Insert any published papers, working papers, or conference presentations related to your MS degree]
+## 3. Research Experience & Academic Projects
+* Currently conducting graduate-level research for MS Thesis in Public Administration.
 * Skilled in data analysis and quality management research, with practical experience implementing ISO 9001:2015 frameworks within public healthcare settings.
 
 ## 4. Professional & Administrative Experience
